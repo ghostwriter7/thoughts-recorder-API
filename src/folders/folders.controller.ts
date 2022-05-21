@@ -1,6 +1,7 @@
 import {Body, Controller, Delete, Get, Param, Post, ValidationPipe} from '@nestjs/common';
 import {FolderDto} from "./dto/folder.dto";
 import {FoldersService} from "./folders.service";
+import {Folder} from "./interfaces";
 
 @Controller('folders')
 export class FoldersController {
@@ -9,8 +10,8 @@ export class FoldersController {
     }
 
     @Get('/all')
-    getFolders() {
-
+    getFolders(): Promise<Folder[]> {
+        return this.foldersService.getFolders();
     }
 
     @Get('/:id')
@@ -19,8 +20,8 @@ export class FoldersController {
     }
 
     @Post()
-    createFolder(@Body(ValidationPipe) folder: FolderDto) {
-
+    createFolder(@Body(ValidationPipe) folder: FolderDto): Promise<Folder> {
+        return this.foldersService.saveFolder(folder);
     }
 
     @Post()
