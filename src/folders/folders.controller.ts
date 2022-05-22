@@ -15,7 +15,7 @@ export class FoldersController {
 
     @Get('/all')
     getFolders(@GetUser() user: User): Promise<Folder[]> {
-        return this.foldersService.getFolders();
+        return this.foldersService.getFolders(user);
     }
 
     @Get('/:id')
@@ -28,7 +28,7 @@ export class FoldersController {
     createFolder(
         @Body(ValidationPipe) folder: FolderDto,
         @GetUser() user: User): Promise<Folder> {
-        return this.foldersService.saveFolder(folder);
+        return this.foldersService.saveFolder(folder, user);
     }
 
     @Post()

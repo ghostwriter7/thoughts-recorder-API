@@ -1,4 +1,5 @@
-import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {User} from "../auth/user.entity";
 
 @Entity()
 export class Folder extends BaseEntity {
@@ -10,4 +11,7 @@ export class Folder extends BaseEntity {
 
     @Column()
     description: string;
+
+    @ManyToOne(type => User, user => user.id)
+    owner: number;
 }

@@ -1,6 +1,7 @@
-import {BaseEntity, Column, Entity, PrimaryGeneratedColumn, Unique} from "typeorm";
+import {BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique} from "typeorm";
 import * as bcrypt from 'bcrypt';
 import {Logger} from "@nestjs/common";
+import {Folder} from "../folders/folder.entity";
 
 @Entity()
 @Unique(['email'])
@@ -18,6 +19,9 @@ export class User extends BaseEntity {
 
     @Column()
     salt: string;
+
+    @OneToMany(type => Folder, folder => folder.id)
+    folders: Folder[];
 
     public async validatePassword(password: string): Promise<boolean> {
         const hash = await bcrypt.hash(password, this.salt);
