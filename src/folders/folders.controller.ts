@@ -21,7 +21,7 @@ export class FoldersController {
     @Get('/:id')
     getFolder(@Param('id') id: number,
               @GetUser() user: User) {
-
+        return this.foldersService.getFolder(user, id);
     }
 
     @Post()

@@ -19,4 +19,8 @@ export class FoldersService {
         const folder = { title, description, owner: user.id };
         return await this.folderRepository.save(folder);
     }
+
+    async getFolder(user: User, id: number): Promise<Folder> {
+        return await this.folderRepository.findOne({ where: { owner: user.id, id: +id }});
+    }
 }
